@@ -3,12 +3,35 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const formSchema = z.object({
-  name: z.string().min(3, "Nama wajib diisi!"),
-  username: z.string().min(5, "Username minimal 5 karakter!"),
-  email: z.string().email("Email tidak valid!"),
-  password: z.string().min(6, "Password minimal 6 karakter!"),
-});
+const formSchema = z
+  .object({
+    name: z
+      .string()
+      .nonempty("Nama wajib diisi!")
+      .max(50, "Nama maksimal 50 karakter!")
+      .min(3, "Nama wajib diisi!"),
+    umur: z
+      .string()
+      .nonempty("Umur wajib diisi!")
+      .regex(/^\d+$/, "Umur harus berupa angka!")
+      .refine((val) => Number(val) >= 18 && Number(val) <= 60, {
+        message: "Umur harus antara 18 sampai 60 tahun!",
+      }),
+    email: z
+      .string()
+      .email("Email tidak valid!")
+      .nonempty("Email wajib diisi!"),
+    password: z
+      .string()
+      .nonempty("Password wajib diisi!")
+      .min(8, "Password minimal 8 karakter!")
+      .regex(/^[A-Z0-9]+$/, "Password hanya boleh huruf besar dan angka!"),
+    confirmPassword: z.string().nonempty("Konfirmasi password wajib diisi!"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Konfirmasi password tidak sama!",
+    path: ["confirmPassword"],
+  });
 
 function Register() {
   const {
@@ -40,13 +63,11 @@ function Register() {
 
         <input
           type="text"
-          placeholder="Username"
-          {...register("username")}
+          placeholder="Umur"
+          {...register("umur")}
           className="p-2 rounded text-black bg-gray-300"
         />
-        {errors.username && (
-          <p className="text-red-400">{errors.username.message}</p>
-        )}
+        {errors.umur && <p className="text-red-400">{errors.umur.message}</p>}
 
         <input
           type="email"
@@ -64,6 +85,16 @@ function Register() {
         />
         {errors.password && (
           <p className="text-red-400">{errors.password.message}</p>
+        )}
+
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          {...register("confirmPassword")}
+          className="p-2 rounded text-black bg-gray-300"
+        />
+        {errors.confirmPassword && (
+          <p className="text-red-400">{errors.confirmPassword.message}</p>
         )}
 
         <button type="submit" className="bg-green-600 p-2 rounded">
