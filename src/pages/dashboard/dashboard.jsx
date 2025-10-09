@@ -1,12 +1,8 @@
-import { DataTable } from "@/components/dataTable";
-import { columns } from "@/utilss/dataUser/columsUser";
-import { data } from "@/utilss/dataUser/dataUser";
-import LayoutDashboard from "@/components/layout/layoutDashboard";
-
-export default function Dashboard() {
+export default function DashboardUser() {
   return (
-    <LayoutDashboard>
-      <DataTable columns={columns} data={data} />
-    </LayoutDashboard>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">User Dashboard</h1>
+      <p>Welcome to the user dashboard!</p>
+    </div>
   );
 }
