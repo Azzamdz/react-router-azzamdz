@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,6 +20,8 @@ const loginSchema = z.object({
 });
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -30,7 +32,9 @@ export default function Login() {
 
   const onSubmit = (data) => {
     alert("Login berhasil!");
+    navigate("/dashboard/user");
   };
+
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
       <h1 className="text-2xl mb-4">Login</h1>
