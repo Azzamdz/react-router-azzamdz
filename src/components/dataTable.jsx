@@ -89,10 +89,6 @@ export default function DataTable({ columns, data }) {
           <span className="font-semibold">Updated:</span>{" "}
           {new Date().toLocaleDateString()}
         </span>
-        <span>
-          <span className="font-semibold">Powered by</span>{" "}
-          <span className="text-blue-500">React Azzam</span>
-        </span>
       </TableCaption>
     </div>
   );

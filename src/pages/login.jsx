@@ -69,7 +69,7 @@ export default function Login() {
         </button>
         <p className="text-sm mt-2">
           Belum punya akun?{" "}
-          <Link to="/register" className="text-blue-400">
+          <Link to="/dashboardUser" className="text-blue-400">
             Register
           </Link>
         </p>
