@@ -19,6 +19,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 export const columns = [
   {
@@ -57,6 +58,7 @@ export const columns = [
     header: "Aksi",
     cell: ({ row }) => {
       const id = row.original.id;
+      const navigate = useNavigate();
 
       const handleDeleteUser = async (id) => {
         try {
@@ -70,6 +72,9 @@ export const columns = [
 
       return (
         <div className="flex items-center gap-3">
+          <button onClick={() => navigate(`/dashboard/user/detail/${id}`)}>
+            <Info size={18} />
+          </button>
           <TooltipProvider>
             {/* Info Button */}
             <Tooltip>
@@ -79,9 +84,7 @@ export const columns = [
                   size="icon"
                   className="rounded-full border-blue-300 hover:bg-blue-50 hover:text-blue-600 transition"
                   onClick={() => console.log("Button Info diklik")}
-                >
-                  <Info size={18} />
-                </Button>
+                ></Button>
               </TooltipTrigger>
               <TooltipContent>Detail</TooltipContent>
             </Tooltip>

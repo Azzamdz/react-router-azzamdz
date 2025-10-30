@@ -12,6 +12,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { addUser } from "@/utilss/api/users";
+import Swal from "sweetalert2";
+import { ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const addUserSchema = z.object({
   fullname: z
@@ -54,16 +57,26 @@ function AddUser() {
     console.log(data);
     try {
       const message = await addUser(data);
-      alert("User berhasil ditambahkan: " + message);
+      Swal.fire({
+        title: "The Internet?",
+        text: "That thing is still around?",
+        icon: "success",
+      });
     } catch (error) {
       console.error("Error adding user:", error);
-      alert("Gagal menambahkan user.");
+      Swal.fire("Gagal menambahkan user.");
     }
   };
+
+  const Navigate = useNavigate();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 px-6 py-12">
       <div className="w-full max-w-md bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-2xl border border-white/20">
+        <ArrowLeft
+          onClick={() => Navigate("/dashboard/user")}
+          className="h-6 w-6 text-white mb-4"
+        />
         <h2 className="text-2xl font-bold text-center text-white mb-2">
           Tambah User Baru
         </h2>
